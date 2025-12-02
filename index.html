@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Versi Aplikasi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px 40px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 8px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Versi Terbaru Aplikasi</h1>
+        <p>Versi: <span id="version">1.0.0</span></p>
+        <button id="updateBtn">Update Sekarang</button>
+    </div>
+
+    <script>
+        // versi terbaru dan link update
+        const latestVersion = "1.0.1";  // ganti sesuai versi terbaru
+        const updateLink = "https://play.google.com/store/apps/details?id=com.example.app"; // ganti link app
+
+        // tampilkan versi
+        document.getElementById("version").textContent = latestVersion;
+
+        // tombol update
+        document.getElementById("updateBtn").addEventListener("click", function() {
+            if(confirm("Update ke versi " + latestVersion + " sekarang?")) {
+                window.location.href = updateLink;
+            }
+        });
+    </script>
+</body>
+</html>
