@@ -1,6 +1,6 @@
 {
-  "latestVersion": 3,
-  "title": "Update Baru!",
-  "message": "Silakan update ke versi terbaru.",
-  "updateUrl": "https://your-link.com"
+  "version": 2,
+  "title": "Update tersedia!",
+  "message": "Versi baru siap di-download!",
+  "updateUrl": "https://contoh.com/update.apk"
 }
