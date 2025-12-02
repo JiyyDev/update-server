@@ -3,63 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Versi Aplikasi</title>
+    <title>Update Panel</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: #202020;
+            color: white;
             margin: 0;
+            padding: 20px;
         }
 
-        .container {
-            background-color: white;
-            padding: 20px 40px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            text-align: center;
+        .card {
+            background: #111;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.4);
+            max-width: 400px;
+            margin: auto;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            margin-top: 10px;
+            margin-bottom: 15px;
         }
 
         button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-top: 15px;
+            width: 100%;
+            padding: 12px;
             border: none;
             border-radius: 8px;
             background-color: #4CAF50;
             color: white;
+            font-size: 16px;
             cursor: pointer;
         }
 
         button:hover {
             background-color: #45a049;
         }
+
+        .preview {
+            background: #000;
+            padding: 20px;
+            border-radius: 14px;
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        #toast {
+            visibility: hidden;
+            min-width: 200px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px;
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.5s, fadeout 0.5s 2s;
+        }
+
+        @keyframes fadein {
+            from {bottom: 20px; opacity: 0;}
+            to {bottom: 40px; opacity: 1;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 40px; opacity: 1;}
+            to {bottom: 20px; opacity: 0;}
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Versi Terbaru Aplikasi</h1>
-        <p>Versi: <span id="version">1.0.0</span></p>
-        <button id="updateBtn">Update Sekarang</button>
-    </div>
 
-    <script>
-        // versi terbaru dan link update
-        const latestVersion = "1.0.1";  // ganti sesuai versi terbaru
-        const updateLink = "https://play.google.com/store/apps/details?id=com.example.app"; // ganti link app
+<div class="card">
+    <h2>Panel Update</h2>
 
-        // tampilkan versi
-        document.getElementById("version").textContent = latestVersion;
+    <label>Title:</label>
+    <input id="inputTitle" type="text" placeholder="Contoh: Versi Terbaru Aplikasi">
 
-        // tombol update
-        document.getElementById("updateBtn").addEventListener("click", function() {
-            if(confirm("Update ke versi " + latestVersion + " sekarang?")) {
-                window.location.href = updateLink;
-            }
-        });
-    </script>
+    <label>Versi:</label>
+    <input id="inputVersion" type="text" placeholder="Contoh: 1.0.2">
+
+    <label>Link Update:</label>
+    <input id="inputLink" type="text" placeholder="https://playstore.com/...">
+
+    <button onclick="apply()">Terapkan Data</button>
+</div>
+
+<div class="preview" id="previewBox" style="display:none;">
+    <h2 id="pTitle">-</h2>
+    <p id="pVersion">Versi: -</p>
+    <button onclick="goUpdate()" id="updateBtn">Update Sekarang</button>
+</div>
+
+<div id="toast">Berhasil diterapkan!</div>
+
+<script>
+    let updateLink = "";
+
+    function apply() {
+        let title = document.getElementById("inputTitle").value;
+        let version = document.getElementById("inputVersion").value;
+        updateLink = document.getElementById("inputLink").value;
+
+        if (!title || !version || !updateLink) {
+            showToast("Isi semua field!");
+            return;
+        }
+
+        document.getElementById("pTitle").textContent = title;
+        document.getElementById("pVersion").textContent = "Versi: " + version;
+
+        document.getElementById("previewBox").style.display = "block";
+
+        showToast("Berhasil diterapkan!");
+    }
+
+    function goUpdate() {
+        if (updateLink) {
+            window.location.href = updateLink;
+        }
+    }
+
+    function showToast(text) {
+        let x = document.getElementById("toast");
+        x.textContent = text;
+        x.className = "show";
+        setTimeout(() => { x.className = x.className.replace("show", ""); }, 2500);
+    }
+</script>
+
 </body>
 </html>
